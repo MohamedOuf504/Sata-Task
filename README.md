@@ -16,7 +16,8 @@ $ docker compose up   --build dev
 
 # production mode
 $ docker compose up  --build  prod -d
-
+# Test mode
+docker compose up   --build test
 ```
 ## GUI DataBabes
 
