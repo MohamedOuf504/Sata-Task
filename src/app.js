@@ -10,6 +10,7 @@ const path = require("path");
 const sponsorRoute = require("./modules/sponsor/sponsor.routes");
 const advertisementRoute = require("./modules/advertisement/advertisement.routes");
 const { sliderRoute } = require("./modules/slider/slider.routes");
+const { usersRoute } = require("./modules/users/users.routes");
 const app = express();
 const limiter = rateLimit({
   windowMs: 60,
@@ -35,15 +36,13 @@ app.use("/api/v1/category", categoryRoute);
 app.use("/api/v1/sponsor", sponsorRoute);
 app.use("/api/v1/ads", advertisementRoute);
 app.use("/api/v1/slider", sliderRoute);
+app.use("/api/v1/users", usersRoute);
 
 app.get("/", (req, res) => {
-
-  res.json({ message: "it is work " });
-  
+  res.json({ message: "it is work"});
 });
 
 app.all("*", (req, res, next) => {
-
   next(new AppError(`Can't find ${req.originalUrl} on this server`));
 });
 

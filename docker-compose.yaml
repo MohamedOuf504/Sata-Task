@@ -22,6 +22,9 @@ services:
       CLOUD_NAME: ${CLOUD_NAME}
       CLOUDINARY_API_KEY: ${CLOUDINARY_API_KEY}
       CLOUDINARY_API_SECRET: ${CLOUDINARY_API_SECRET}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN}
+
   ########################################################
   prod:
     build:
@@ -45,6 +48,27 @@ services:
       CLOUD_NAME: ${CLOUD_NAME}
       CLOUDINARY_API_KEY: ${CLOUDINARY_API_KEY}
       CLOUDINARY_API_SECRET: ${CLOUDINARY_API_SECRET}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN}
+  ####################test###############################
+  test:
+    build:
+      context: .
+      target: test
+      dockerfile: ./Dockerfile
+    image: sata-image-test
+    container_name: sata-container-test
+    depends_on:
+      - mongo
+    command: npm run test
+    volumes:
+      - .:/app
+    environment:
+      MONGO_URL: ${DB_URI_TEST}
+      PORT: ${NODE_PORT_TEST}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN}
+
   ####################mongo###############################
   mongo:
     image: mongo
